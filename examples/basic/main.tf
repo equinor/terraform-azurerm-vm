@@ -36,11 +36,12 @@ module "vm" {
   vm_name             = "vm-${random_id.suffix.hex}"
   resource_group_name = var.resource_group_name
   location            = var.location
+  kind                = "Windows"
   admin_username      = "hknutsen"
 
   network_interfaces = {
     "default" = {
-      name = "default"
+      name = "nic-vm-${random_id.suffix.hex}"
 
       ip_configurations = [
         {

@@ -31,7 +31,7 @@ variable "kind" {
 variable "size" {
   description = "The SKU which should be used for this VM."
   type        = string
-  default     = "Standard_F2" # TODO: set appropriate default value
+  default     = "Standard_B1s" # TODO: set appropriate default value
   nullable    = false
 }
 
