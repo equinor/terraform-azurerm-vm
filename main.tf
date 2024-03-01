@@ -47,20 +47,19 @@ resource "azurerm_linux_virtual_machine" "this" {
   admin_password                  = random_password.this.result
   disable_password_authentication = false
 
+  network_interface_ids = local.network_interface_ids
+
   os_disk {
     name                 = var.os_disk_name
     caching              = var.os_disk_caching
     storage_account_type = var.os_disk_storage_account_type
   }
 
-  network_interface_ids = local.network_interface_ids
-
-  # TODO: get values from variables
   source_image_reference {
-    publisher = "canonical"
-    offer     = "0001-com-ubuntu-minimal-focal"
-    sku       = "minimal-20_04-lts-gen2"
-    version   = "latest"
+    publisher = coalesce(var.source_image_publisher, "canonical")
+    offer     = coalesce(var.source_image_offer, "0001-com-ubuntu-minimal-focal")
+    sku       = coalesce(var.source_image_sku, "minimal-20_04-lts-gen2")
+    version   = coalesce(var.source_image_version, "latest")
   }
 
   tags = var.tags
@@ -85,15 +84,12 @@ resource "azurerm_windows_virtual_machine" "this" {
     storage_account_type = var.os_disk_storage_account_type
   }
 
-  # TODO: get values from variables
   source_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2022-datacenter-azure-edition"
-    version   = "latest"
+    publisher = coalesce(var.source_image_publisher, "MicrosoftWindowsServer")
+    offer     = coalesce(var.source_image_offer, "WindowsServer")
+    sku       = coalesce(var.source_image_sku, "2022-datacenter-azure-edition")
+    version   = coalesce(var.source_image_version, "latest")
   }
 
   tags = var.tags
 }
-
-# TODO: add diagnostic setting?

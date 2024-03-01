@@ -31,7 +31,7 @@ variable "kind" {
 variable "size" {
   description = "The SKU which should be used for this VM."
   type        = string
-  default     = "Standard_B1s" # TODO: set appropriate default value
+  default     = "Standard_B1s"
   nullable    = false
 }
 
@@ -39,23 +39,6 @@ variable "admin_username" {
   description = "The admin username for this VM."
   type        = string
   nullable    = false
-}
-
-variable "os_disk_name" {
-  description = "The name of this OS disk."
-  type        = string
-}
-
-variable "os_disk_caching" {
-  description = "" # TODO: write description
-  type        = string
-  default     = "None" # TODO: set appropriate default value
-}
-
-variable "os_disk_storage_account_type" {
-  description = "" # TODO: write description
-  type        = string
-  default     = "Standard_LRS" # TODO: set appropriate default value
 }
 
 variable "network_interfaces" {
@@ -74,7 +57,51 @@ variable "network_interfaces" {
     error_message = "At least one network interface must be created for this VM."
   }
 
-  # TODO: validate that at least one IP configuration is configured for each network interface
+  validation {
+    condition     = alltrue([for nic in var.network_interfaces : length(nic.ip_configurations) > 0])
+    error_message = "At least one IP configuration must be configured for each network interface."
+  }
+}
+
+variable "os_disk_name" {
+  description = "The name of this OS disk."
+  type        = string
+}
+
+variable "os_disk_caching" {
+  description = "The type of caching that should be used for the OS disk."
+  type        = string
+  default     = "None" # TODO: set appropriate default value
+}
+
+variable "os_disk_storage_account_type" {
+  description = "The type of storage account which should be used for the OS disk."
+  type        = string
+  default     = "StandardSSD_LRS"
+}
+
+variable "source_image_publisher" {
+  description = "The publisher of the image used to create this VM."
+  type        = string
+  default     = null
+}
+
+variable "source_image_offer" {
+  description = "The offer of the image used to create this VM."
+  type        = string
+  default     = null
+}
+
+variable "source_image_sku" {
+  description = "The SKU of the image used to create this VM."
+  type        = string
+  default     = null
+}
+
+variable "source_image_version" {
+  description = "The version of the image used to create this VM."
+  type        = string
+  default     = null
 }
 
 variable "tags" {
