@@ -67,6 +67,10 @@ resource "azurerm_linux_virtual_machine" "this" {
     version   = coalesce(var.source_image_version, "latest")
   }
 
+  boot_diagnostics {
+    storage_account_uri = var.storage_blob_endpoint
+  }
+
   tags = var.tags
 }
 
@@ -94,6 +98,10 @@ resource "azurerm_windows_virtual_machine" "this" {
     offer     = coalesce(var.source_image_offer, "WindowsServer")
     sku       = coalesce(var.source_image_sku, "2022-datacenter-azure-edition")
     version   = coalesce(var.source_image_version, "latest")
+  }
+
+  boot_diagnostics {
+    storage_account_uri = var.storage_blob_endpoint
   }
 
   tags = var.tags

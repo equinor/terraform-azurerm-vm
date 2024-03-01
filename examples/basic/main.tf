@@ -1,4 +1,6 @@
 provider "azurerm" {
+  storage_use_azuread = true
+
   features {}
 }
 
@@ -20,8 +22,20 @@ resource "azurerm_network_security_group" "example" {
   tags = local.tags
 }
 
+module "log_analytics" {
+  source  = "equinor/log-analytics/azurerm"
+  version = "2.2.0"
+
+  workspace_name      = "log-${random_id.suffix.hex}"
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  tags = local.tags
+}
+
 module "network" {
-  source = "github.com/equinor/terraform-azurerm-network?ref=v3.0.0"
+  source  = "equinor/network/azurerm"
+  version = "3.0.0"
 
   vnet_name           = "vnet-${random_id.suffix.hex}"
   resource_group_name = var.resource_group_name
@@ -41,15 +55,29 @@ module "network" {
   tags = local.tags
 }
 
+module "storage" {
+  source  = "equinor/storage/azurerm"
+  version = "12.3.0"
+
+  account_name               = "stvm${random_id.suffix.hex}"
+  resource_group_name        = var.resource_group_name
+  location                   = var.location
+  log_analytics_workspace_id = module.log_analytics.workspace_id
+
+  tags = local.tags
+}
+
 module "vm" {
-  # source = "github.com/equinor/terraform-azurerm-vm?ref=v0.0.0"
+  # source = "equinor/vm/azurerm"
+  # version = "0.0.0"
   source = "../.."
 
-  vm_name             = "vm-${random_id.suffix.hex}"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  admin_username      = "azureadminuser"
-  os_disk_name        = "osdisk-vm-${random_id.suffix.hex}"
+  vm_name               = "vm-${random_id.suffix.hex}"
+  resource_group_name   = var.resource_group_name
+  location              = var.location
+  storage_blob_endpoint = module.storage.blob_endpoint
+  admin_username        = "azureadminuser"
+  os_disk_name          = "osdisk-vm-${random_id.suffix.hex}"
 
   network_interfaces = {
     "backend" = {

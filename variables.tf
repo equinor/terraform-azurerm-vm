@@ -112,6 +112,12 @@ variable "source_image_version" {
   default     = null
 }
 
+variable "storage_blob_endpoint" {
+  description = "The blob endpoint of the Storage account to use for boot diagnostics."
+  type        = string
+  nullable    = false
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
