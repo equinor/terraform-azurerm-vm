@@ -122,6 +122,16 @@ variable "extensions" {
   default = {}
 }
 
+variable "patching" {
+  description = "Specifies the VM Guest Patching for the Virtual Machine"
+  type = object({
+    patch_mode                                             = optional(string, "ImageDefault")
+    patch_assessment_mode                                  = optional(string, "ImageDefault")
+    bypass_platform_safety_checks_on_user_schedule_enabled = optional(bool, false)
+
+  })
+}
+
 variable "backup" {
   description = "The backup policy and recovery service vault to be used to backup this virtual machine"
   type = object({

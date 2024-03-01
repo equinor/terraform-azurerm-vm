@@ -25,7 +25,6 @@ resource "azurerm_linux_virtual_machine" "this" {
   custom_data                     = var.custom_data
 
   bypass_platform_safety_checks_on_user_schedule_enabled = true
-  provision_vm_agent                                     = true
 
   network_interface_ids = [
     azurerm_network_interface.this.id
