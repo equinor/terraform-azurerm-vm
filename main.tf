@@ -24,6 +24,8 @@ resource "azurerm_network_interface" "this" {
   resource_group_name = var.resource_group_name
   location            = var.location
 
+  tags = var.tags
+
   dynamic "ip_configuration" {
     for_each = each.value.ip_configurations
 
