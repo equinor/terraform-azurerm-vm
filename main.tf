@@ -6,7 +6,7 @@ locals {
 }
 
 resource "random_password" "this" {
-  length      = 123
+  length      = local.is_windows ? 123 : 72
   lower       = true
   upper       = true
   numeric     = true
@@ -47,12 +47,13 @@ resource "azurerm_linux_virtual_machine" "this" {
   admin_password                  = random_password.this.result
   disable_password_authentication = false
 
-  network_interface_ids = local.network_interface_ids
-
   os_disk {
+    name                 = var.os_disk_name
     caching              = var.os_disk_caching
     storage_account_type = var.os_disk_storage_account_type
   }
+
+  network_interface_ids = local.network_interface_ids
 
   # TODO: get values from variables
   source_image_reference {

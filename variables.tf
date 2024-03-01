@@ -41,6 +41,23 @@ variable "admin_username" {
   nullable    = false
 }
 
+variable "os_disk_name" {
+  description = "The name of this OS disk."
+  type        = string
+}
+
+variable "os_disk_caching" {
+  description = "" # TODO: write description
+  type        = string
+  default     = "None" # TODO: set appropriate default value
+}
+
+variable "os_disk_storage_account_type" {
+  description = "" # TODO: write description
+  type        = string
+  default     = "Standard_LRS" # TODO: set appropriate default value
+}
+
 variable "network_interfaces" {
   description = "A map of network interfaces to create for this VM."
   type = map(object({
@@ -58,18 +75,6 @@ variable "network_interfaces" {
   }
 
   # TODO: validate that at least one IP configuration is configured for each network interface
-}
-
-variable "os_disk_caching" {
-  description = "" # TODO: write description
-  type        = string
-  default     = "None" # TODO: set appropriate default value
-}
-
-variable "os_disk_storage_account_type" {
-  description = "" # TODO: write description
-  type        = string
-  default     = "Standard_LRS" # TODO: set appropriate default value
 }
 
 variable "tags" {
