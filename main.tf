@@ -1,16 +1,28 @@
+# Local variables
+locals {
+  # Set to the same as the vm_name if not defined
+  computer_name = try(var.computer_name, var.vm_name)
+
+  # Merge the vm_only_tags and the tags variables
+  vm_tags = merge(var.vm_only_tags, var.tags)
+
+}
+
+
 # Linux VM
 resource "azurerm_linux_virtual_machine" "this" {
-  count                           = var.host.is_windows ? 0 : 1
-  resource_group_name             = var.resource_group_name
-  name                            = var.host.name
-  computer_name                   = coalesce(var.host.computer_name, var.host.name)
-  size                            = var.host.size
-  location                        = var.location
-  disable_password_authentication = false
-  admin_username                  = "imadmin"
-  admin_password                  = random_password.this.result
-  tags                            = var.tags
-  custom_data                     = try(var.custom_data, null)
+  count               = var.is_windows ? 0 : 1
+  resource_group_name = var.resource_group_name
+  location            = var.location
+
+  name                            = var.vm_name
+  computer_name                   = local.computer_name
+  size                            = var.vm_size
+  disable_password_authentication = var.disable_password_authentication
+  admin_username                  = var.admin_username
+  admin_password                  = var.admin_password
+  tags                            = local.vm_tags
+  custom_data                     = var.custom_data
 
   bypass_platform_safety_checks_on_user_schedule_enabled = true
   provision_vm_agent                                     = true
