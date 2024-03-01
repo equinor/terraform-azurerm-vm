@@ -71,7 +71,9 @@ variable "os_disk_name" {
 variable "os_disk_caching" {
   description = "The type of caching that should be used for the OS disk."
   type        = string
-  default     = "None" # TODO: set appropriate default value
+  default     = "ReadWrite"
+  # By default, cache-capable OS disks will have read/write caching enabled.
+  # Ref: https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance#virtual-machine-uncached-vs-cached-limits
 }
 
 variable "os_disk_storage_account_type" {
