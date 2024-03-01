@@ -31,6 +31,8 @@ resource "azurerm_network_interface" "this" {
       name                          = ip_configuration.value.name
       subnet_id                     = ip_configuration.value.subnet_id
       private_ip_address_allocation = "Dynamic"
+
+      # A public IP address should not be attached directly to a NIC.
     }
   }
 }
