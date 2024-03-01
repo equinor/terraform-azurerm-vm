@@ -16,6 +16,8 @@ resource "azurerm_network_security_group" "example" {
   name                = "nsg-${random_id.suffix.hex}"
   resource_group_name = var.resource_group_name
   location            = var.location
+
+  tags = local.tags
 }
 
 module "network" {
@@ -35,6 +37,8 @@ module "network" {
       }
     }
   }
+
+  tags = local.tags
 }
 
 module "vm" {
@@ -58,4 +62,6 @@ module "vm" {
       ]
     }
   }
+
+  tags = local.tags
 }
