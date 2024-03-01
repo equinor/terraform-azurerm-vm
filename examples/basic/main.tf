@@ -4,7 +4,7 @@ provider "azurerm" {
 
 locals {
   tags = {
-    Evnrionment = "Dev"
+    Environment = "Dev"
   }
 }
 
