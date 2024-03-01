@@ -35,6 +35,12 @@ variable "size" {
   nullable    = false
 }
 
+variable "computer_name" {
+  description = "value"
+  type        = string
+  default     = null
+}
+
 variable "admin_username" {
   description = "The admin username for this VM."
   type        = string

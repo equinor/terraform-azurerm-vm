@@ -47,6 +47,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   location            = var.location
   size                = var.size
 
+  computer_name                   = coalesce(var.computer_name, var.vm_name)
   admin_username                  = var.admin_username
   admin_password                  = random_password.this.result
   disable_password_authentication = false
@@ -77,7 +78,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   location            = var.location
   size                = var.size
 
-  computer_name  = substr(var.vm_name, 0, 15) # TODO: find better solution here
+  computer_name  = coalesce(var.computer_name, substr(var.vm_name, 0, 15))
   admin_username = var.admin_username
   admin_password = random_password.this.result
 

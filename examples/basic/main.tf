@@ -48,7 +48,7 @@ module "vm" {
   vm_name             = "vm-${random_id.suffix.hex}"
   resource_group_name = var.resource_group_name
   location            = var.location
-  admin_username      = "hknutsen"
+  admin_username      = "azureadminuser"
   os_disk_name        = "osdisk-vm-${random_id.suffix.hex}"
 
   network_interfaces = {
