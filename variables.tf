@@ -41,19 +41,15 @@ variable "admin_username" {
   nullable    = false
 }
 
-# TODO: create separate NIC module?
 variable "network_interfaces" {
   description = "A map of network interfaces to create for this VM."
-
   type = map(object({
     name = string
-
     ip_configurations = list(object({
       name      = string
       subnet_id = string
     }))
   }))
-
   nullable = false
 
   validation {

@@ -2,6 +2,12 @@ provider "azurerm" {
   features {}
 }
 
+locals {
+  tags = {
+    Evnrionment = "Dev"
+  }
+}
+
 resource "random_id" "suffix" {
   byte_length = 8
 }
@@ -22,9 +28,11 @@ module "network" {
 
   subnets = {
     "vm" = {
-      name                   = "snet-vm-${random_id.suffix.hex}"
-      address_prefixes       = ["10.0.1.0/24"]
-      network_security_group = { id = azurerm_network_security_group.example.id }
+      name             = "snet-vm-${random_id.suffix.hex}"
+      address_prefixes = ["10.0.1.0/24"]
+      network_security_group = {
+        id = azurerm_network_security_group.example.id
+      }
     }
   }
 }
@@ -40,9 +48,8 @@ module "vm" {
   admin_username      = "hknutsen"
 
   network_interfaces = {
-    "default" = {
+    "backend" = {
       name = "nic-vm-${random_id.suffix.hex}"
-
       ip_configurations = [
         {
           name      = "ipconfig1"
