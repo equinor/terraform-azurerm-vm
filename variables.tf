@@ -41,6 +41,7 @@ variable "admin_username" {
   nullable    = false
 }
 
+# TODO: create separate NIC module?
 variable "network_interfaces" {
   description = "A map of network interfaces to create for this VM."
 
