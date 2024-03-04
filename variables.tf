@@ -36,7 +36,7 @@ variable "size" {
 }
 
 variable "computer_name" {
-  description = "value"
+  description = "The computer (host) name for this VM."
   type        = string
   default     = null
 }
