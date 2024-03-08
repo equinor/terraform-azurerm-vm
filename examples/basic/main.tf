@@ -39,7 +39,7 @@ module "storage" {
 
 module "network" {
   source  = "equinor/network/azurerm"
-  version = "3.1.0"
+  version = "3.0.1"
 
   vnet_name           = "vnet-${random_id.suffix.hex}"
   resource_group_name = var.resource_group_name
