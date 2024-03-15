@@ -64,6 +64,7 @@ module "vm" {
   vm_name               = "vm-${random_id.suffix.hex}"
   resource_group_name   = var.resource_group_name
   location              = var.location
+  kind                  = "Windows"
   admin_username        = "azureadminuser"
   os_disk_name          = "osdisk-vm-${random_id.suffix.hex}"
   storage_blob_endpoint = module.storage.blob_endpoint
