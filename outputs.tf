@@ -26,7 +26,7 @@ output "network_interface_private_ip_addresses" {
   }
 }
 
-output "network_interface" {
+output "network_interfaces" {
   value = { for k, v in azurerm_network_interface.this : k => {
     name           = v.name
     resource_group = v.resource_group_name
