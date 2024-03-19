@@ -25,3 +25,12 @@ output "network_interface_private_ip_addresses" {
     for k, v in azurerm_network_interface.this : k => v.private_ip_address
   }
 }
+
+output "network_interface" {
+  value = { for k, v in azurerm_network_interface.this : k => {
+    name           = v.name
+    resource_group = v.resource_group_name
+    id             = v.id
+  } }
+  description = "A map of network interfaces."
+}
