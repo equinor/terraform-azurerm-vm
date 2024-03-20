@@ -19,9 +19,9 @@ output "admin_password" {
   sensitive   = true
 }
 
-output "network_interface_private_ip_addresses" {
-  description = "A map of network interface private IP addresses."
+output "private_ip_addresses" {
+  description = "A map of private IP addresses for the network interfaces of this VM."
   value = {
-    for k, v in azurerm_network_interface.this : k => v.private_ip_address
+    for k, v in azurerm_network_interface.this : k => v.private_ip_addresses
   }
 }
