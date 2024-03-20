@@ -8,7 +8,6 @@ locals {
 
 }
 
-
 # Linux VM
 resource "azurerm_linux_virtual_machine" "this" {
   count               = var.is_windows ? 0 : 1
