@@ -54,3 +54,92 @@ run "windows_vm" {
     error_message = "Trying to create Linux VM"
   }
 }
+
+run "enable_system_assigned_identity" {
+  command = plan
+
+  variables {
+    vm_name               = run.setup_tests.vm_name
+    resource_group_name   = run.setup_tests.resource_group_name
+    location              = run.setup_tests.location
+    admin_username        = run.setup_tests.admin_username
+    os_disk_name          = run.setup_tests.os_disk_name
+    storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
+    network_interfaces    = run.setup_tests.network_interfaces
+
+    system_assigned_identity_enabled = true
+  }
+
+  assert {
+    condition     = length(local.vm.identity) == 1
+    error_message = "System-assigned identity disabled."
+  }
+
+  assert {
+    condition     = local.vm.identity[0].type == "SystemAssigned"
+    error_message = "System-assigned identity disabled."
+  }
+}
+
+run "disable_system_assigned_identity" {
+  command = plan
+
+  variables {
+    vm_name               = run.setup_tests.vm_name
+    resource_group_name   = run.setup_tests.resource_group_name
+    location              = run.setup_tests.location
+    admin_username        = run.setup_tests.admin_username
+    os_disk_name          = run.setup_tests.os_disk_name
+    storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
+    network_interfaces    = run.setup_tests.network_interfaces
+
+    system_assigned_identity_enabled = false
+  }
+
+  assert {
+    condition     = length(local.vm.identity) == 0
+    error_message = "System-assigned identity enabled."
+  }
+
+  assert {
+    condition     = output.identity_principal_id == null
+    error_message = "Able to get system-assigned principal ID."
+  }
+
+  assert {
+    condition     = output.identity_tenant_id == null
+    error_message = "Able to get system-assigned identity tenant ID."
+  }
+}
+
+run "user_assigned_identities" {
+  command = plan
+
+  variables {
+    vm_name               = run.setup_tests.vm_name
+    resource_group_name   = run.setup_tests.resource_group_name
+    location              = run.setup_tests.location
+    admin_username        = run.setup_tests.admin_username
+    os_disk_name          = run.setup_tests.os_disk_name
+    storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
+    network_interfaces    = run.setup_tests.network_interfaces
+
+    # TODO: must be resource IDs
+    identity_ids = ["8a7d8074-7da6-4c4a-8cf4-4c2e591baab1", "47cf0511-7499-42db-b0bd-dccb1e67caec"] # randomly generated UUIDs
+  }
+
+  assert {
+    condition     = length(local.vm.identity) == 1
+    error_message = "User-assigned identity disabled."
+  }
+
+  assert {
+    condition     = local.vm.identity[0].type == "UserAssigned"
+    error_message = "User-assigned identity disabled."
+  }
+
+  assert {
+    condition     = length(local.vm.identity[0].identity_ids) == 2
+    error_message = "Incorrect number of user-assigned identity IDs."
+  }
+}

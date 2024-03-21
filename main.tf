@@ -4,6 +4,8 @@ locals {
 
   network_interface_ids = [for v in azurerm_network_interface.this : v.id]
 
+  identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
+
   vm_tags = merge(var.tags, var.vm_tags)
 }
 
@@ -76,6 +78,15 @@ resource "azurerm_linux_virtual_machine" "this" {
     storage_account_uri = var.storage_blob_endpoint
   }
 
+  dynamic "identity" {
+    for_each = local.identity_type != "" ? [1] : []
+
+    content {
+      type         = local.identity_type
+      identity_ids = var.identity_ids
+    }
+  }
+
   tags = local.vm_tags
 }
 
@@ -107,6 +118,15 @@ resource "azurerm_windows_virtual_machine" "this" {
 
   boot_diagnostics {
     storage_account_uri = var.storage_blob_endpoint
+  }
+
+  dynamic "identity" {
+    for_each = local.identity_type != "" ? [1] : []
+
+    content {
+      type         = local.identity_type
+      identity_ids = var.identity_ids
+    }
   }
 
   tags = local.vm_tags
