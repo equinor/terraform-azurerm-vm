@@ -3,6 +3,8 @@ locals {
   vm         = local.is_windows ? azurerm_windows_virtual_machine.this[0] : azurerm_linux_virtual_machine.this[0]
 
   network_interface_ids = [for v in azurerm_network_interface.this : v.id]
+
+  custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
 }
 
 resource "random_password" "this" {
@@ -57,6 +59,8 @@ resource "azurerm_linux_virtual_machine" "this" {
 
   network_interface_ids = local.network_interface_ids
 
+  custom_data = local.custom_data
+
   os_disk {
     name                 = var.os_disk_name
     caching              = var.os_disk_caching
@@ -90,6 +94,8 @@ resource "azurerm_windows_virtual_machine" "this" {
   admin_password = random_password.this.result
 
   network_interface_ids = local.network_interface_ids
+
+  custom_data = local.custom_data
 
   os_disk {
     caching              = var.os_disk_caching

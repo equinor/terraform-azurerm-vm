@@ -118,6 +118,12 @@ variable "storage_blob_endpoint" {
   nullable    = false
 }
 
+variable "custom_data" {
+  description = "The custom data that should be used for this VM."
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources."
   type        = map(string)
