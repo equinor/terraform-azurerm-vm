@@ -5,6 +5,7 @@ locals {
   network_interface_ids = [for v in azurerm_network_interface.this : v.id]
 
   custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
+  vm_tags     = merge(var.tags, var.vm_tags)
 }
 
 resource "random_password" "this" {
@@ -78,7 +79,7 @@ resource "azurerm_linux_virtual_machine" "this" {
     storage_account_uri = var.storage_blob_endpoint
   }
 
-  tags = var.tags
+  tags = local.vm_tags
 }
 
 resource "azurerm_windows_virtual_machine" "this" {
@@ -113,5 +114,5 @@ resource "azurerm_windows_virtual_machine" "this" {
     storage_account_uri = var.storage_blob_endpoint
   }
 
-  tags = var.tags
+  tags = local.vm_tags
 }

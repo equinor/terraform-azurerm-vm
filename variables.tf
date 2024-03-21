@@ -125,7 +125,13 @@ variable "custom_data" {
 }
 
 variable "tags" {
-  description = "A map of tags to assign to the resources."
+  description = "A map of tags to assign to all resources."
+  type        = map(string)
+  default     = {}
+}
+
+variable "vm_tags" {
+  description = "A map of tags to assign to this VM."
   type        = map(string)
   default     = {}
 }
