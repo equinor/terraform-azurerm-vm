@@ -62,7 +62,6 @@ run "custom_data" {
     vm_name               = run.setup_tests.vm_name
     resource_group_name   = run.setup_tests.resource_group_name
     location              = run.setup_tests.location
-    kind                  = "Windows"
     admin_username        = run.setup_tests.admin_username
     os_disk_name          = run.setup_tests.os_disk_name
     storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
