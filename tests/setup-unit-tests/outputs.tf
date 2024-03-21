@@ -36,3 +36,7 @@ output "network_interfaces" {
     }
   }
 }
+
+output "custom_data" {
+  value = file("${path.module}/cloud-init.txt")
+}
