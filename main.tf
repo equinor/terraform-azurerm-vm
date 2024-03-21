@@ -5,7 +5,8 @@ locals {
   network_interface_ids = [for v in azurerm_network_interface.this : v.id]
 
   custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
-  vm_tags     = merge(var.tags, var.vm_tags)
+
+  vm_tags = merge(var.tags, var.vm_tags)
 }
 
 resource "random_password" "this" {
