@@ -124,8 +124,7 @@ run "user_assigned_identities" {
     storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
     network_interfaces    = run.setup_tests.network_interfaces
 
-    # TODO: must be resource IDs
-    identity_ids = ["8a7d8074-7da6-4c4a-8cf4-4c2e591baab1", "47cf0511-7499-42db-b0bd-dccb1e67caec"] # randomly generated UUIDs
+    identity_ids = run.setup_tests.identity_ids
   }
 
   assert {

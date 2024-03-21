@@ -36,3 +36,10 @@ output "network_interfaces" {
     }
   }
 }
+
+output "identity_ids" {
+  value = [
+    "/subscriptions/${local.subscription_id}/resourceGroups/${local.resource_group_name}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-${local.name_suffix}-01",
+    "/subscriptions/${local.subscription_id}/resourceGroups/${local.resource_group_name}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-${local.name_suffix}-02"
+  ]
+}
