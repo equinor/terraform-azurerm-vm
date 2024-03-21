@@ -118,6 +118,12 @@ variable "storage_blob_endpoint" {
   nullable    = false
 }
 
+variable "custom_data" {
+  description = "The custom data that should be used for this VM."
+  type        = string
+  default     = null
+}
+
 variable "system_assigned_identity_enabled" {
   description = "Should the system-assigned identity be enabled for this VM?"
   type        = bool

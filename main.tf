@@ -4,6 +4,8 @@ locals {
 
   network_interface_ids = [for v in azurerm_network_interface.this : v.id]
 
+  custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
+
   identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
 
   vm_tags = merge(var.tags, var.vm_tags)
@@ -61,6 +63,8 @@ resource "azurerm_linux_virtual_machine" "this" {
 
   network_interface_ids = local.network_interface_ids
 
+  custom_data = local.custom_data
+
   os_disk {
     name                 = var.os_disk_name
     caching              = var.os_disk_caching
@@ -103,6 +107,8 @@ resource "azurerm_windows_virtual_machine" "this" {
   admin_password = random_password.this.result
 
   network_interface_ids = local.network_interface_ids
+
+  custom_data = local.custom_data
 
   os_disk {
     caching              = var.os_disk_caching

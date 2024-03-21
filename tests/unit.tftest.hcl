@@ -142,3 +142,19 @@ run "user_assigned_identities" {
     error_message = "Incorrect number of user-assigned identity IDs."
   }
 }
+
+run "custom_data" {
+  command = plan
+
+  variables {
+    vm_name               = run.setup_tests.vm_name
+    resource_group_name   = run.setup_tests.resource_group_name
+    location              = run.setup_tests.location
+    admin_username        = run.setup_tests.admin_username
+    os_disk_name          = run.setup_tests.os_disk_name
+    storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
+    network_interfaces    = run.setup_tests.network_interfaces
+
+    custom_data = run.setup_tests.custom_data
+  }
+}
