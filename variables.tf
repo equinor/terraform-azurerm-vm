@@ -124,6 +124,18 @@ variable "custom_data" {
   default     = null
 }
 
+variable "system_assigned_identity_enabled" {
+  description = "Should the system-assigned identity be enabled for this VM?"
+  type        = bool
+  default     = false
+}
+
+variable "identity_ids" {
+  description = "A list of IDs of managed identities to be assigned to this VM."
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "A map of tags to assign to all resources."
   type        = map(string)
