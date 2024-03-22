@@ -6,7 +6,10 @@ locals {
 
   custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
 
-  identity_type = join(", ", compact([var.system_assigned_identity_enabled ? "SystemAssigned" : "", length(var.identity_ids) > 0 ? "UserAssigned" : ""]))
+  identity_type = join(", ", compact([
+    var.system_assigned_identity_enabled ? "SystemAssigned" : "",
+    length(var.identity_ids) > 0 ? "UserAssigned" : ""
+  ]))
 
   vm_tags = merge(var.tags, var.vm_tags)
 }
