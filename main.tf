@@ -86,7 +86,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   }
 
   dynamic "identity" {
-    for_each = local.identity_type != "" ? [1] : []
+    for_each = local.identity_type != "" ? [0] : []
 
     content {
       type         = local.identity_type
@@ -130,7 +130,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   }
 
   dynamic "identity" {
-    for_each = local.identity_type != "" ? [1] : []
+    for_each = local.identity_type != "" ? [0] : []
 
     content {
       type         = local.identity_type
