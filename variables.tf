@@ -136,6 +136,18 @@ variable "identity_ids" {
   default     = []
 }
 
+variable "data_disks" {
+  description = "A map of data disks to be created and attached to this VM."
+  type = map(object({
+    name                 = string
+    disk_size_gb         = number
+    storage_account_type = optional(string, "Standard_LRS")
+    caching              = optional(string, "ReadWrite")
+    lun                  = optional(number)
+  }))
+  default = {}
+}
+
 variable "tags" {
   description = "A map of tags to assign to all resources."
   type        = map(string)
