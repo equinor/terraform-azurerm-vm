@@ -45,8 +45,8 @@ resource "azurerm_network_interface" "this" {
 
       # A public IP address should not be attached directly to a NIC.
 
-      # If configuring multiple IP configurations, the first configuration should be set as primary.
-      primary = length(each.value.ip_configurations) > 1 && index(each.value.ip_configurations, ip_configuration.value) == 0
+      # The first configuration should be set as primary.
+      primary = index(each.value.ip_configurations, ip_configuration.value) == 0
     }
   }
 }
