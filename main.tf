@@ -58,8 +58,8 @@ resource "azurerm_network_interface" "this" {
 
       # A public IP address should not be attached directly to a NIC.
 
-      # If configuring multiple IP configurations, the first configuration should be set as primary.
-      primary = length(each.value.ip_configurations) > 1 && index(each.value.ip_configurations, ip_configuration.value) == 0
+      # The first configuration should be set as primary.
+      primary = index(each.value.ip_configurations, ip_configuration.value) == 0
     }
   }
 }
@@ -152,6 +152,28 @@ resource "azurerm_windows_virtual_machine" "this" {
   }
 
   tags = local.vm_tags
+}
+ 
+resource "azurerm_managed_disk" "this" {
+  for_each = var.data_disks
+
+  name                 = each.value.name
+  resource_group_name  = var.resource_group_name
+  location             = var.location
+  create_option        = "Empty"
+  disk_size_gb         = each.value.disk_size_gb
+  storage_account_type = each.value.storage_account_type
+
+  tags = var.tags
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "this" {
+  for_each = var.data_disks
+
+  virtual_machine_id = local.vm.id
+  managed_disk_id    = azurerm_managed_disk.this[each.key].id
+  caching            = each.value.caching
+  lun                = coalesce(each.value.lun, index(values(var.data_disks), each.value))
 }
 
 resource "azurerm_virtual_machine_extension" "this" {
