@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.3.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.2.0...v0.3.0) (2024-03-26)
+
+
+### Features
+
+* add additional VM tags ([#19](https://github.com/equinor/terraform-azurerm-vm/issues/19)) ([6d5527c](https://github.com/equinor/terraform-azurerm-vm/commit/6d5527c9f8b0ada75e77991fc82054c6bfd730ea)), closes [#13](https://github.com/equinor/terraform-azurerm-vm/issues/13)
+* add custom data ([#20](https://github.com/equinor/terraform-azurerm-vm/issues/20)) ([0c74a39](https://github.com/equinor/terraform-azurerm-vm/commit/0c74a39e1afaded3091ca25d95e91547c8aef124))
+* create data disks ([#23](https://github.com/equinor/terraform-azurerm-vm/issues/23)) ([3fc517e](https://github.com/equinor/terraform-azurerm-vm/commit/3fc517eaa20f3922752b82622a82c10d2d5c232b))
+* enable identity ([#22](https://github.com/equinor/terraform-azurerm-vm/issues/22)) ([a6727bf](https://github.com/equinor/terraform-azurerm-vm/commit/a6727bf6f693b9464af30944886b156ce13d52c5))
+* install extensions ([#26](https://github.com/equinor/terraform-azurerm-vm/issues/26)) ([7a67117](https://github.com/equinor/terraform-azurerm-vm/commit/7a67117105966dbe9010f2ace35e4dc2c5b2d96c))
+
+
+### Bug Fixes
+
+* always mark first IP configuration as primary ([#25](https://github.com/equinor/terraform-azurerm-vm/issues/25)) ([64681c5](https://github.com/equinor/terraform-azurerm-vm/commit/64681c528bc3ecc0eb180e093596077f1a9f80ba))
+
 ## [0.2.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.1.0...v0.2.0) (2024-03-20)
 
 
