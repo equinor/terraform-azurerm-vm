@@ -11,6 +11,17 @@ locals {
     length(var.identity_ids) > 0 ? "UserAssigned" : ""
   ]))
 
+  default_extensions = {
+    "AzureMonitorAgent" = {
+      name                       = "AzureMonitor${var.kind}Agent"
+      publisher                  = "Microsoft.Azure.Monitor"
+      type                       = "AzureMonitor${var.kind}Agent"
+      type_handler_version       = local.is_windows ? "1.24" : "1.30"
+      auto_upgrade_minor_version = true
+      automatic_upgrade_enabled  = false
+    }
+  }
+
   vm_tags = merge(var.tags, var.vm_tags)
 }
 
@@ -139,4 +150,16 @@ resource "azurerm_windows_virtual_machine" "this" {
   }
 
   tags = local.vm_tags
+}
+
+resource "azurerm_virtual_machine_extension" "this" {
+  for_each = merge(local.default_extensions, var.extensions)
+
+  virtual_machine_id         = local.vm.id
+  name                       = each.value.name
+  publisher                  = each.value.publisher
+  type                       = each.value.type
+  type_handler_version       = each.value.type_handler_version
+  auto_upgrade_minor_version = each.value.auto_upgrade_minor_version
+  automatic_upgrade_enabled  = each.value.automatic_upgrade_enabled
 }
