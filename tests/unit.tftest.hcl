@@ -158,3 +158,34 @@ run "custom_data" {
     custom_data = run.setup_tests.custom_data
   }
 }
+
+run "data_disks" {
+  command = plan
+
+  variables {
+    vm_name               = run.setup_tests.vm_name
+    resource_group_name   = run.setup_tests.resource_group_name
+    location              = run.setup_tests.location
+    admin_username        = run.setup_tests.admin_username
+    os_disk_name          = run.setup_tests.os_disk_name
+    storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
+    network_interfaces    = run.setup_tests.network_interfaces
+
+    data_disks = run.setup_tests.data_disks
+  }
+
+  assert {
+    condition     = length(azurerm_managed_disk.this) == 2 && length(azurerm_virtual_machine_data_disk_attachment.this) == 2
+    error_message = "Failed to create and attach 2 data disks"
+  }
+
+  assert {
+    condition     = alltrue([for k, v in azurerm_managed_disk.this : v.create_option == "Empty"])
+    error_message = "Managed disk create option must be \"Empty\""
+  }
+
+  assert {
+    condition     = azurerm_virtual_machine_data_disk_attachment.this["disk1"].lun == 0 && azurerm_virtual_machine_data_disk_attachment.this["disk2"].lun == 1
+    error_message = "Unexpected logical unit numbers (LUNs) for data disks"
+  }
+}

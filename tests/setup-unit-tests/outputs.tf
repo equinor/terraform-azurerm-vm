@@ -37,6 +37,19 @@ output "network_interfaces" {
   }
 }
 
+output "data_disks" {
+  value = {
+    "disk1" = {
+      name         = "disk-${local.name_suffix}-01"
+      disk_size_gb = 1
+    }
+    "disk2" = {
+      name         = "disk-${local.name_suffix}-02"
+      disk_size_gb = 1
+    }
+  }
+}
+
 output "custom_data" {
   value = file("${path.module}/cloud-init.txt")
 }
