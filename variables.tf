@@ -136,7 +136,6 @@ variable "identity_ids" {
   default     = []
 }
 
-
 variable "data_disks" {
   description = "A map of data disks to be created and attached to this VM."
   type = map(object({
@@ -158,7 +157,7 @@ variable "extensions" {
     type_handler_version       = string
     auto_upgrade_minor_version = optional(bool, true)
     automatic_upgrade_enabled  = optional(bool, false)
-  }
+  }))
   default = {}
 }
 

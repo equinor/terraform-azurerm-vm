@@ -153,7 +153,7 @@ resource "azurerm_windows_virtual_machine" "this" {
 
   tags = local.vm_tags
 }
- 
+
 resource "azurerm_managed_disk" "this" {
   for_each = var.data_disks
 
