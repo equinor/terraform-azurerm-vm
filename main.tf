@@ -13,10 +13,12 @@ locals {
 
   default_extensions = {
     "AzureMonitorAgent" = {
-      name                       = "AzureMonitor${var.kind}Agent"
-      publisher                  = "Microsoft.Azure.Monitor"
-      type                       = "AzureMonitor${var.kind}Agent"
-      type_handler_version       = local.is_windows ? "1.24" : "1.30"
+      name      = "AzureMonitor${var.kind}Agent"
+      publisher = "Microsoft.Azure.Monitor"
+      type      = "AzureMonitor${var.kind}Agent"
+
+      # Install latest minor version 1.x
+      type_handler_version       = "1.0"
       auto_upgrade_minor_version = true
       automatic_upgrade_enabled  = false
     }
