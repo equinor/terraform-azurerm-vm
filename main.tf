@@ -11,6 +11,19 @@ locals {
     length(var.identity_ids) > 0 ? "UserAssigned" : ""
   ]))
 
+  default_extensions = {
+    "AzureMonitorAgent" = {
+      name      = "AzureMonitor${var.kind}Agent"
+      publisher = "Microsoft.Azure.Monitor"
+      type      = "AzureMonitor${var.kind}Agent"
+
+      # Install latest minor version 1.x
+      type_handler_version       = "1.0"
+      auto_upgrade_minor_version = true
+      automatic_upgrade_enabled  = false
+    }
+  }
+
   vm_tags = merge(var.tags, var.vm_tags)
 }
 
@@ -161,4 +174,16 @@ resource "azurerm_virtual_machine_data_disk_attachment" "this" {
   managed_disk_id    = azurerm_managed_disk.this[each.key].id
   caching            = each.value.caching
   lun                = coalesce(each.value.lun, index(values(var.data_disks), each.value))
+}
+
+resource "azurerm_virtual_machine_extension" "this" {
+  for_each = merge(local.default_extensions, var.extensions)
+
+  virtual_machine_id         = local.vm.id
+  name                       = each.value.name
+  publisher                  = each.value.publisher
+  type                       = each.value.type
+  type_handler_version       = each.value.type_handler_version
+  auto_upgrade_minor_version = each.value.auto_upgrade_minor_version
+  automatic_upgrade_enabled  = each.value.automatic_upgrade_enabled
 }

@@ -148,6 +148,19 @@ variable "data_disks" {
   default = {}
 }
 
+variable "extensions" {
+  description = "A map of extensions to be installed for this VM."
+  type = map(object({
+    name                       = string
+    publisher                  = string
+    type                       = string
+    type_handler_version       = string
+    auto_upgrade_minor_version = optional(bool, true)
+    automatic_upgrade_enabled  = optional(bool, false)
+  }))
+  default = {}
+}
+
 variable "tags" {
   description = "A map of tags to assign to all resources."
   type        = map(string)
