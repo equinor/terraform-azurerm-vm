@@ -145,6 +145,7 @@ variable "data_disks" {
     caching              = optional(string, "ReadWrite")
     create_option        = optional(string, "Empty")
     lun                  = optional(number)
+    hyper_v_generation   = optional(string)
   }))
   default = {}
 }

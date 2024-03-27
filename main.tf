@@ -163,6 +163,7 @@ resource "azurerm_managed_disk" "this" {
   create_option        = each.value.create_option
   disk_size_gb         = each.value.disk_size_gb
   storage_account_type = each.value.storage_account_type
+  hyper_v_generation   = each.value.hyper_v_generation
 
   tags = var.tags
 }
