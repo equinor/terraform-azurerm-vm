@@ -143,6 +143,7 @@ variable "data_disks" {
     disk_size_gb         = number
     storage_account_type = optional(string, "Standard_LRS")
     caching              = optional(string, "ReadWrite")
+    create_option        = optional(string, "Empty")
     lun                  = optional(number)
   }))
   default = {}
