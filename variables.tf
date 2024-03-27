@@ -144,7 +144,7 @@ variable "data_disks" {
     storage_account_type = optional(string, "Standard_LRS")
     caching              = optional(string, "ReadWrite")
     lun                  = optional(number)
-    hyper_v_generation   = optional(string, null)
+    hyper_v_generation   = optional(string)
   }))
   default = {}
 }
