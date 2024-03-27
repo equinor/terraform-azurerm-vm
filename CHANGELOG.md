@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.3.0...v0.4.0) (2024-03-27)
+
+
+### Features
+
+* added hyper_v_generation parameter to data_disks ([#30](https://github.com/equinor/terraform-azurerm-vm/issues/30)) ([f4231a3](https://github.com/equinor/terraform-azurerm-vm/commit/f4231a3b445f88176908160f95b52cda3711dd60))
+
 ## [0.3.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.2.0...v0.3.0) (2024-03-26)
 
 
