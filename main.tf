@@ -164,7 +164,8 @@ resource "azurerm_managed_disk" "this" {
   disk_size_gb         = each.value.disk_size_gb
   storage_account_type = each.value.storage_account_type
   hyper_v_generation   = each.value.hyper_v_generation
-  tags                 = var.tags
+  
+  tags = var.tags
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "this" {
