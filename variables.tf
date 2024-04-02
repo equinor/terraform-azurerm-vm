@@ -55,6 +55,9 @@ variable "network_interfaces" {
       name      = string
       subnet_id = string
     }))
+    network_security_group = optional(object({
+      id = string
+    }))
   }))
   nullable = false
 
