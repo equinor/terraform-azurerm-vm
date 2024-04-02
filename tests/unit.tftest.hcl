@@ -55,6 +55,25 @@ run "windows_vm" {
   }
 }
 
+run "network_interface_nsg_association" {
+  command = plan
+
+  variables {
+    vm_name               = run.setup_tests.vm_name
+    resource_group_name   = run.setup_tests.resource_group_name
+    location              = run.setup_tests.location
+    admin_username        = run.setup_tests.admin_username
+    os_disk_name          = run.setup_tests.os_disk_name
+    storage_blob_endpoint = run.setup_tests.storage_blob_endpoint
+    network_interfaces    = run.setup_tests.network_interfaces_with_nsg
+  }
+
+  assert {
+    condition     = length(azurerm_network_interface_security_group_association.this) == 1
+    error_message = "Trying to create network interface security group association"
+  }
+}
+
 run "enable_system_assigned_identity" {
   command = plan
 
