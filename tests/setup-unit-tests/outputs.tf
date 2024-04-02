@@ -37,6 +37,25 @@ output "network_interfaces" {
   }
 }
 
+output "network_interfaces_with_nsg" {
+  value = {
+    "default" = {
+      name = local.nic_name
+
+      ip_configurations = [
+        {
+          name      = "ipconfig1"
+          subnet_id = local.subnet_id
+        }
+      ]
+
+      network_security_group = {
+        id = "/subscriptions/${local.subscription_id}/resourceGroups/${local.resource_group_name}/providers/Microsoft.Network/networkSecurityGroups/nsg-${local.name_suffix}"
+      }
+    }
+  }
+}
+
 output "data_disks" {
   value = {
     "disk1" = {
