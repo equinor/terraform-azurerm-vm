@@ -47,6 +47,14 @@ variable "admin_username" {
   nullable    = false
 }
 
+variable "admin_password" {
+  description = "An admin password for this VM. If value is set to null, a random password is generated."
+  type        = string
+  nullable    = true
+  default     = null
+  sensitive   = true
+}
+
 variable "network_interfaces" {
   description = "A map of network interfaces to create for this VM."
   type = map(object({
