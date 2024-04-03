@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.4.0...v0.5.0) (2024-04-03)
+
+
+### Features
+
+* add variable `admin_password` ([#37](https://github.com/equinor/terraform-azurerm-vm/issues/37)) ([0a15028](https://github.com/equinor/terraform-azurerm-vm/commit/0a15028f07af498f0b2910e24fbf0a9c0c1d85cd))
+* associate network interface with security group ([#33](https://github.com/equinor/terraform-azurerm-vm/issues/33)) ([87a0ac6](https://github.com/equinor/terraform-azurerm-vm/commit/87a0ac633f7bba00f21f569adc32e17f0627c8c4))
+
 ## [0.4.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.3.0...v0.4.0) (2024-03-27)
 
 
