@@ -8,6 +8,8 @@ locals {
 
   network_interface_ids = [for v in azurerm_network_interface.this : v.id]
 
+  admin_password = coalesce(var.admin_password, random_password.this.result)
+
   custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
 
   identity_type = join(", ", compact([
@@ -85,7 +87,7 @@ resource "azurerm_linux_virtual_machine" "this" {
 
   computer_name                   = coalesce(var.computer_name, var.vm_name)
   admin_username                  = var.admin_username
-  admin_password                  = random_password.this.result
+  admin_password                  = local.admin_password
   disable_password_authentication = false
 
   network_interface_ids = local.network_interface_ids
@@ -131,7 +133,7 @@ resource "azurerm_windows_virtual_machine" "this" {
 
   computer_name  = coalesce(var.computer_name, substr(var.vm_name, 0, 15))
   admin_username = var.admin_username
-  admin_password = random_password.this.result
+  admin_password = local.admin_password
 
   network_interface_ids = local.network_interface_ids
 
