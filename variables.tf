@@ -100,7 +100,7 @@ variable "os_disk_storage_account_type" {
 }
 
 variable "os_disk_size_gb" {
-  description = "The size of this OS disk."
+  description = "The size of this OS disk in gigabytes (GB)."
   type        = number
   default     = null
 }
