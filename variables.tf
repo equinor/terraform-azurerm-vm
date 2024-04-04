@@ -99,6 +99,12 @@ variable "os_disk_storage_account_type" {
   default     = "StandardSSD_LRS"
 }
 
+variable "os_disk_size_gb" {
+  description = "The size of this OS disk."
+  type        = number
+  default     = null
+}
+
 variable "source_image_publisher" {
   description = "The publisher of the image used to create this VM."
   type        = string
