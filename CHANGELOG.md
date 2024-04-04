@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.5.0...v0.6.0) (2024-04-04)
+
+
+### Features
+
+* add variable `os_disk_size_gb` ([#38](https://github.com/equinor/terraform-azurerm-vm/issues/38)) ([8047d2f](https://github.com/equinor/terraform-azurerm-vm/commit/8047d2f67d6a1feae66a0147f26334a162c847d4))
+
 ## [0.5.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.4.0...v0.5.0) (2024-04-03)
 
 
