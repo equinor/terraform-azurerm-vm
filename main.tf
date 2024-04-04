@@ -97,6 +97,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   os_disk {
     name                 = var.os_disk_name
     caching              = var.os_disk_caching
+    disk_size_gb         = var.os_disk_size_gb
     storage_account_type = var.os_disk_storage_account_type
   }
 
@@ -142,6 +143,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   os_disk {
     caching              = var.os_disk_caching
     storage_account_type = var.os_disk_storage_account_type
+    disk_size_gb         = var.os_disk_size_gb
   }
 
   source_image_reference {
