@@ -47,3 +47,6 @@ Terraform module which creates Azure Virtual Machine resources.
     ```
 
     See [`terraform test` command documentation](https://developer.hashicorp.com/terraform/cli/commands/test) for options.
+## Contributing
+
+See [Contributing guidelines](https://github.com/equinor/terraform-baseline/blob/main/CONTRIBUTING.md).
