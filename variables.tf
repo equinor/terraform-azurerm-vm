@@ -191,3 +191,9 @@ variable "vm_tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "azure_orchestrated_patching_enabled" {
+  description = "Should Azure-orchestrated patching be enabled for this VM?"
+  type        = bool
+  default     = false
+}

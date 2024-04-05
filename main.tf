@@ -12,6 +12,8 @@ locals {
 
   custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
 
+  patch_mode = var.azure_orchestrated_patching_enabled ? "AutomaticByPlatform" : "ImageDefault"
+
   identity_type = join(", ", compact([
     var.system_assigned_identity_enabled ? "SystemAssigned" : "",
     length(var.identity_ids) > 0 ? "UserAssigned" : ""
@@ -93,6 +95,11 @@ resource "azurerm_linux_virtual_machine" "this" {
   network_interface_ids = local.network_interface_ids
 
   custom_data = local.custom_data
+
+  bypass_platform_safety_checks_on_user_schedule_enabled = var.azure_orchestrated_patching_enabled
+
+  patch_assessment_mode = local.patch_mode
+  patch_mode            = local.patch_mode
 
   os_disk {
     name                 = var.os_disk_name
