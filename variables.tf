@@ -199,7 +199,7 @@ variable "patch_assessment_mode" {
 
   validation {
     condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
-    error_message = "The patch_assessment_mode value must be either \"ImageDefault\" (default) or \"AutomaticByPlatform\"."
+    error_message = "The patch_assessment_mode value must be either \"ImageDefault\" or \"AutomaticByPlatform\"."
   }
 }
 
