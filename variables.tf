@@ -210,12 +210,18 @@ variable "patch_assessment_mode" {
 }
 
 variable "patch_mode" {
-  description = "Specifies the mode of in-guest patching to this Linux Virtual Machine. Possible values are AutomaticByPlatform and ImageDefault. Defaults to ImageDefault"
+  description = "Specifies the mode of in-guest patching to this Virtual Machine. Possible values for Linux VMs are AutomaticByPlatform and ImageDefault, for Windows WMs possible values are Manual, AutomaticByOS and AutomaticByPlatform. Defaults to ImageDefault for Linux VMS and AutomaticByOS for Windows VMs"
   type        = string
-  default     = "ImageDefault"
+  default     = var.kind == "Linux" ? "ImageDefault" : "AutomaticByOS"
 
   validation {
-    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode)
-    error_message = "The patch_mode value must be either \"ImageDefault\" (default) or \"AutomaticByPlatform\"."
+    condition = contains(
+      (var.kind == "Linux" ?
+        ["ImageDefault", "AutomaticByPlatform"] :
+        ["Manual", "AutomaticByOS", "AutomaticByPlatform"]
+      ),
+      var.patch_mode
+    )
+    error_message = "The patch_mode value must be either \"ImageDefault\" or \"AutomaticByPlatform\" for linux VMs or \"Manual\", \"AutomaticByOS\" and \"AutomaticByPlatform\" for Windows VMs."
   }
 }
