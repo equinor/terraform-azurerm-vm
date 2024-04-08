@@ -197,3 +197,25 @@ variable "azure_orchestrated_patching_enabled" {
   type        = bool
   default     = false
 }
+
+variable "patch_assessment_mode" {
+  description = "Specifies the mode of VM guest patching for the Virtual Machine. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault."
+  type        = string
+  default     = "ImageDefault"
+
+  validation {
+    condition     = !contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
+    error_message = "The patch_assessment_mode value must be either \"ImageDefault\" (default) or \"AutomaticByPlatform\"."
+  }
+}
+
+variable "patch_mode" {
+  description = "Specifies the mode of in-guest patching to this Linux Virtual Machine. Possible values are AutomaticByPlatform and ImageDefault. Defaults to ImageDefault"
+  type        = string
+  default     = "ImageDefault"
+
+  validation {
+    condition     = !contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode)
+    error_message = "The patch_mode value must be either \"ImageDefault\" (default) or \"AutomaticByPlatform\"."
+  }
+}
