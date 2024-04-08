@@ -192,12 +192,6 @@ variable "vm_tags" {
   default     = {}
 }
 
-variable "azure_orchestrated_patching_enabled" {
-  description = "Should Azure-orchestrated patching be enabled for this VM?"
-  type        = bool
-  default     = false
-}
-
 variable "patch_assessment_mode" {
   description = "Specifies the mode of VM guest patching for the Virtual Machine. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault."
   type        = string
