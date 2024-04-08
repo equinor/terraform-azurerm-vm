@@ -92,7 +92,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   network_interface_ids           = local.network_interface_ids
   custom_data                     = local.custom_data
 
-  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform"
+  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode_linux == "AutomaticByPlatform"
 
   patch_assessment_mode = var.patch_assessment_mode
   patch_mode            = var.patch_mode_linux
@@ -141,7 +141,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   network_interface_ids = local.network_interface_ids
   custom_data           = local.custom_data
 
-  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform"
+  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode_windows == "AutomaticByPlatform"
 
   patch_assessment_mode = var.patch_assessment_mode
   patch_mode            = var.patch_mode_windows
