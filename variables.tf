@@ -215,7 +215,7 @@ variable "patch_mode_linux" {
   default     = "ImageDefault"
 
   validation {
-    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode)
+    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode_linux)
     error_message = "The patch_mode_linux value must be either \"ImageDefault\" or \"AutomaticByPlatform\"."
   }
 }
@@ -226,7 +226,7 @@ variable "patch_mode_windows" {
   default     = "AutomaticByOS"
 
   validation {
-    condition     = contains(["Manual", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode)
+    condition     = contains(["Manual", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode_windows)
     error_message = "The patch_mode_windows value must be either \"Manual\", \"AutomaticByOS\" and \"AutomaticByPlatform\"."
   }
 }
