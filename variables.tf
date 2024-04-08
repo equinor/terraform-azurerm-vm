@@ -204,7 +204,7 @@ variable "patch_assessment_mode" {
   default     = "ImageDefault"
 
   validation {
-    condition     = !contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
+    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
     error_message = "The patch_assessment_mode value must be either \"ImageDefault\" (default) or \"AutomaticByPlatform\"."
   }
 }
@@ -215,7 +215,7 @@ variable "patch_mode" {
   default     = "ImageDefault"
 
   validation {
-    condition     = !contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode)
+    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode)
     error_message = "The patch_mode value must be either \"ImageDefault\" (default) or \"AutomaticByPlatform\"."
   }
 }
