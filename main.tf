@@ -95,7 +95,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform"
 
   patch_assessment_mode = var.patch_assessment_mode
-  patch_mode            = var.patch_mode
+  patch_mode            = var.patch_mode_linux
 
   os_disk {
     name                 = var.os_disk_name
@@ -144,7 +144,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform"
 
   patch_assessment_mode = var.patch_assessment_mode
-  patch_mode            = var.patch_mode
+  patch_mode            = var.patch_mode_windows
 
   os_disk {
     caching              = var.os_disk_caching
