@@ -159,28 +159,6 @@ variable "patch_assessment_mode" {
   }
 }
 
-variable "patch_mode_linux" {
-  description = "Specifies the mode of in-guest patching for a Linux Virtual Machine. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault"
-  type        = string
-  default     = "ImageDefault"
-
-  validation {
-    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode_linux)
-    error_message = "The patch_mode_linux value must be either \"ImageDefault\" or \"AutomaticByPlatform\"."
-  }
-}
-
-variable "patch_mode_windows" {
-  description = "Specifies the mode of in-guest patching for a Windows Virtual Machine. Possible values are Manual, AutomaticByOS or AutomaticByPlatform. Defaults to AutomaticByOS"
-  type        = string
-  default     = "AutomaticByOS"
-
-  validation {
-    condition     = contains(["Manual", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode_windows)
-    error_message = "The patch_mode_windows value must be either \"Manual\", \"AutomaticByOS\" or \"AutomaticByPlatform\"."
-  }
-}
-
 variable "custom_data" {
   description = "The custom data that should be used for this VM."
   type        = string
