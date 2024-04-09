@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.7.0...v0.8.0) (2024-04-09)
+
+
+### Features
+
+* add availability_set_id ([#43](https://github.com/equinor/terraform-azurerm-vm/issues/43)) ([51a8750](https://github.com/equinor/terraform-azurerm-vm/commit/51a8750cb9a1efe23865f4af54c3dfea849b6b88))
+
 ## [0.7.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.6.0...v0.7.0) (2024-04-09)
 
 
