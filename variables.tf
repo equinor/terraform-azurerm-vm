@@ -135,6 +135,39 @@ variable "storage_blob_endpoint" {
   nullable    = false
 }
 
+variable "patch_assessment_mode" {
+  description = "Specifies the mode of VM guest patching for the Virtual Machine. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault."
+  type        = string
+  default     = "ImageDefault"
+
+  validation {
+    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
+    error_message = "The patch_assessment_mode value must be either \"ImageDefault\" or \"AutomaticByPlatform\"."
+  }
+}
+
+variable "patch_mode_linux" {
+  description = "Specifies the mode of in-guest patching for a Linux Virtual Machine. Possible values are AutomaticByPlatform and ImageDefault. Defaults to ImageDefault"
+  type        = string
+  default     = "ImageDefault"
+
+  validation {
+    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode_linux)
+    error_message = "The patch_mode_linux value must be either \"ImageDefault\" or \"AutomaticByPlatform\"."
+  }
+}
+
+variable "patch_mode_windows" {
+  description = "Specifies the mode of in-guest patching for a Windows Virtual Machine. Possible values are Manual, AutomaticByOS and AutomaticByPlatform. Defaults to AutomaticByOS"
+  type        = string
+  default     = "AutomaticByOS"
+
+  validation {
+    condition     = contains(["Manual", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode_windows)
+    error_message = "The patch_mode_windows value must be either \"Manual\", \"AutomaticByOS\" and \"AutomaticByPlatform\"."
+  }
+}
+
 variable "custom_data" {
   description = "The custom data that should be used for this VM."
   type        = string
@@ -190,37 +223,4 @@ variable "vm_tags" {
   description = "A map of tags to assign to this VM."
   type        = map(string)
   default     = {}
-}
-
-variable "patch_assessment_mode" {
-  description = "Specifies the mode of VM guest patching for the Virtual Machine. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault."
-  type        = string
-  default     = "ImageDefault"
-
-  validation {
-    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
-    error_message = "The patch_assessment_mode value must be either \"ImageDefault\" or \"AutomaticByPlatform\"."
-  }
-}
-
-variable "patch_mode_linux" {
-  description = "Specifies the mode of in-guest patching for a Linux Virtual Machine. Possible values are AutomaticByPlatform and ImageDefault. Defaults to ImageDefault"
-  type        = string
-  default     = "ImageDefault"
-
-  validation {
-    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode_linux)
-    error_message = "The patch_mode_linux value must be either \"ImageDefault\" or \"AutomaticByPlatform\"."
-  }
-}
-
-variable "patch_mode_windows" {
-  description = "Specifies the mode of in-guest patching for a Windows Virtual Machine. Possible values are Manual, AutomaticByOS and AutomaticByPlatform. Defaults to AutomaticByOS"
-  type        = string
-  default     = "AutomaticByOS"
-
-  validation {
-    condition     = contains(["Manual", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode_windows)
-    error_message = "The patch_mode_windows value must be either \"Manual\", \"AutomaticByOS\" and \"AutomaticByPlatform\"."
-  }
 }
