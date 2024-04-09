@@ -135,6 +135,30 @@ variable "storage_blob_endpoint" {
   nullable    = false
 }
 
+variable "patch_mode" {
+  description = "Specifies the guest patching mode for this VM. Value must be \"Manual\", \"ImageDefault\", \"AutomaticByOS\" or \"AutomaticByPlatform\"."
+  type        = string
+  default     = "AutomaticByPlatform"
+  nullable    = false
+
+  validation {
+    condition     = contains(["Manual", "ImageDefault", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode)
+    error_message = "Patch mode must be \"Manual\", \"ImageDefault\", \"AutomaticByOS\" or \"AutomaticByPlatform\"."
+  }
+}
+
+variable "patch_assessment_mode" {
+  description = "Specifies the patch assessment mode for this VM. Value must be \"ImageDefault\" or \"AutomaticByPlatform\"."
+  type        = string
+  default     = "AutomaticByPlatform"
+  nullable    = false
+
+  validation {
+    condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
+    error_message = "Patch assessment mode must be \"ImageDefault\" or \"AutomaticByPlatform\"."
+  }
+}
+
 variable "custom_data" {
   description = "The custom data that should be used for this VM."
   type        = string
