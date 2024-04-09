@@ -89,13 +89,15 @@ resource "azurerm_linux_virtual_machine" "this" {
   admin_username                  = var.admin_username
   admin_password                  = local.admin_password
   disable_password_authentication = false
-  network_interface_ids           = local.network_interface_ids
-  custom_data                     = local.custom_data
+
+  network_interface_ids = local.network_interface_ids
 
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode_linux == "AutomaticByPlatform"
 
   patch_assessment_mode = var.patch_assessment_mode
   patch_mode            = var.patch_mode_linux
+
+  custom_data = local.custom_data
 
   os_disk {
     name                 = var.os_disk_name
@@ -135,16 +137,18 @@ resource "azurerm_windows_virtual_machine" "this" {
   location            = var.location
   size                = var.size
 
-  computer_name         = coalesce(var.computer_name, substr(var.vm_name, 0, 15))
-  admin_username        = var.admin_username
-  admin_password        = local.admin_password
+  computer_name  = coalesce(var.computer_name, substr(var.vm_name, 0, 15))
+  admin_username = var.admin_username
+  admin_password = local.admin_password
+
   network_interface_ids = local.network_interface_ids
-  custom_data           = local.custom_data
 
   bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode_windows == "AutomaticByPlatform"
 
   patch_assessment_mode = var.patch_assessment_mode
   patch_mode            = var.patch_mode_windows
+
+  custom_data = local.custom_data
 
   os_disk {
     caching              = var.os_disk_caching
