@@ -217,7 +217,7 @@ variable "vm_tags" {
 }
 
 variable "availability_set_id" {
-  description = "Specifies the ID of the Availability Set in which the Virtual Machine should exist."
+  description = "Specifies the ID of the Availability Set in which this Virtual Machine should exist."
   type        = string
   default     = null
 }
