@@ -10,6 +10,9 @@ locals {
 
   admin_password = coalesce(var.admin_password, random_password.this.result)
 
+  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode == "AutomaticByPlatform"
+  provision_vm_agent                                     = var.patch_mode == "AutomaticByPlatform" || var.patch_assessment_mode == "AutomaticByPlatform"
+
   custom_data = var.custom_data != null ? base64encode(var.custom_data) : null
 
   identity_type = join(", ", compact([
@@ -92,10 +95,10 @@ resource "azurerm_linux_virtual_machine" "this" {
 
   network_interface_ids = local.network_interface_ids
 
-  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode_linux == "AutomaticByPlatform"
-
-  patch_assessment_mode = var.patch_assessment_mode
-  patch_mode            = var.patch_mode_linux
+  patch_mode                                             = var.patch_mode
+  patch_assessment_mode                                  = var.patch_assessment_mode
+  bypass_platform_safety_checks_on_user_schedule_enabled = local.bypass_platform_safety_checks_on_user_schedule_enabled
+  provision_vm_agent                                     = local.provision_vm_agent
 
   custom_data = local.custom_data
 
@@ -127,6 +130,13 @@ resource "azurerm_linux_virtual_machine" "this" {
   }
 
   tags = local.vm_tags
+
+  lifecycle {
+    precondition {
+      condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode)
+      error_message = "Patch mode must be \"ImageDefault\" or \"AutomaticByPlatform\" for Linux VMs."
+    }
+  }
 }
 
 resource "azurerm_windows_virtual_machine" "this" {
@@ -143,10 +153,10 @@ resource "azurerm_windows_virtual_machine" "this" {
 
   network_interface_ids = local.network_interface_ids
 
-  bypass_platform_safety_checks_on_user_schedule_enabled = var.patch_mode_windows == "AutomaticByPlatform"
-
-  patch_assessment_mode = var.patch_assessment_mode
-  patch_mode            = var.patch_mode_windows
+  patch_mode                                             = var.patch_mode
+  patch_assessment_mode                                  = var.patch_assessment_mode
+  bypass_platform_safety_checks_on_user_schedule_enabled = local.bypass_platform_safety_checks_on_user_schedule_enabled
+  provision_vm_agent                                     = local.provision_vm_agent
 
   custom_data = local.custom_data
 
@@ -177,6 +187,13 @@ resource "azurerm_windows_virtual_machine" "this" {
   }
 
   tags = local.vm_tags
+
+  lifecycle {
+    precondition {
+      condition     = contains(["Manual", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode)
+      error_message = "Patch mode must be \"Manual\", \"AutomaticByOS\" or \"AutomaticByPlatform\" for Windows VMs."
+    }
+  }
 }
 
 resource "azurerm_managed_disk" "this" {

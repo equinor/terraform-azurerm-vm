@@ -135,10 +135,23 @@ variable "storage_blob_endpoint" {
   nullable    = false
 }
 
-variable "patch_assessment_mode" {
-  description = "Specifies the mode of VM guest patching for the Virtual Machine. Possible values are AutomaticByPlatform or ImageDefault. Defaults to ImageDefault."
+variable "patch_mode" {
+  description = "Specifies the guest patching mode for this VM. Value must be \"Manual\", \"ImageDefault\", \"AutomaticByOS\" or \"AutomaticByPlatform\"."
   type        = string
-  default     = "ImageDefault"
+  default     = "AutomaticByPlatform"
+  nullable    = false
+
+  validation {
+    condition     = contains(["Manual", "ImageDefault", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode)
+    error_message = "Patch mode must be \"Manual\", \"ImageDefault\", \"AutomaticByOS\" or \"AutomaticByPlatform\"."
+  }
+}
+
+variable "patch_assessment_mode" {
+  description = "Specifies the mode of patch assessment for this VM. Value must be \"ImageDefault\" or \"AutomaticByPlatform\"."
+  type        = string
+  default     = "AutomaticByPlatform"
+  nullable    = false
 
   validation {
     condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_assessment_mode)
