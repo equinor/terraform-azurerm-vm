@@ -215,3 +215,9 @@ variable "vm_tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "availability_set_id" {
+  description = "The ID of an availability set in which this VM should be created."
+  type        = string
+  default     = null
+}

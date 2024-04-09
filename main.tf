@@ -95,6 +95,8 @@ resource "azurerm_linux_virtual_machine" "this" {
 
   network_interface_ids = local.network_interface_ids
 
+  availability_set_id = var.availability_set_id
+
   patch_mode                                             = var.patch_mode
   patch_assessment_mode                                  = var.patch_assessment_mode
   bypass_platform_safety_checks_on_user_schedule_enabled = local.bypass_platform_safety_checks_on_user_schedule_enabled
@@ -152,6 +154,8 @@ resource "azurerm_windows_virtual_machine" "this" {
   admin_password = local.admin_password
 
   network_interface_ids = local.network_interface_ids
+
+  availability_set_id = var.availability_set_id
 
   patch_mode                                             = var.patch_mode
   patch_assessment_mode                                  = var.patch_assessment_mode
