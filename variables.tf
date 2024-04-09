@@ -148,7 +148,7 @@ variable "patch_mode" {
 }
 
 variable "patch_assessment_mode" {
-  description = "Specifies the mode of patch assessment for this VM. Value must be \"ImageDefault\" or \"AutomaticByPlatform\"."
+  description = "Specifies the patch assessment mode for this VM. Value must be \"ImageDefault\" or \"AutomaticByPlatform\"."
   type        = string
   default     = "AutomaticByPlatform"
   nullable    = false
