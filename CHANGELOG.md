@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.6.0...v0.7.0) (2024-04-09)
+
+
+### Features
+
+* configure patch mode ([#41](https://github.com/equinor/terraform-azurerm-vm/issues/41)) ([57c1840](https://github.com/equinor/terraform-azurerm-vm/commit/57c18403590322dfc41454dbf905c91501e82423))
+
 ## [0.6.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.5.0...v0.6.0) (2024-04-04)
 
 
