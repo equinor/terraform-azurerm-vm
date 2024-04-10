@@ -87,6 +87,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   resource_group_name = var.resource_group_name
   location            = var.location
   size                = var.size
+  license_type        = var.license_type
 
   computer_name                   = coalesce(var.computer_name, var.vm_name)
   admin_username                  = var.admin_username
@@ -137,6 +138,10 @@ resource "azurerm_linux_virtual_machine" "this" {
     precondition {
       condition     = contains(["ImageDefault", "AutomaticByPlatform"], var.patch_mode)
       error_message = "Patch mode must be \"ImageDefault\" or \"AutomaticByPlatform\" for Linux VMs."
+    }
+    precondition {
+      condition     = contains(["RHEL_BYOS", "SLES_BYOS"], var.license_type)
+      error_message = "license mode must be \"RHEL_BYOS\" or \"SLES_BYOS\" for Linux VMs."
     }
   }
 }
@@ -197,6 +202,10 @@ resource "azurerm_windows_virtual_machine" "this" {
     precondition {
       condition     = contains(["Manual", "AutomaticByOS", "AutomaticByPlatform"], var.patch_mode)
       error_message = "Patch mode must be \"Manual\", \"AutomaticByOS\" or \"AutomaticByPlatform\" for Windows VMs."
+    }
+    precondition {
+      condition     = contains(["None", "Windows_Client", "Windows_Server"], var.license_type)
+      error_message = "license mode must be \"None\", \"Windows_Client\", \"Windows_Server\" for Windows VMs."
     }
   }
 }

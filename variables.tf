@@ -227,3 +227,14 @@ variable "license_type" {
   type        = string
   default     = null
 }
+
+variable "license_type" {
+  description = "Specifies the type of license which should be used for this Virtual Machine. Value must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\". Defaults to null."
+  type        = string
+  default     = null
+
+  validation {
+    condition     = contains(["None", "Windows_Client", "Windows_Server", "RHEL_BYOS", "SLES_BYOS"], var.license_type)
+    error_message = "License mode must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\"."
+  }
+}
