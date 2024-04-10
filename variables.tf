@@ -221,3 +221,9 @@ variable "availability_set_id" {
   type        = string
   default     = null
 }
+
+variable "license_type" {
+  description = "The license type to assign to this VM."
+  type        = string
+  default     = null
+}

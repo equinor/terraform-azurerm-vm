@@ -148,6 +148,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   resource_group_name = var.resource_group_name
   location            = var.location
   size                = var.size
+  license_type        = var.license_type
 
   computer_name  = coalesce(var.computer_name, substr(var.vm_name, 0, 15))
   admin_username = var.admin_username
