@@ -223,12 +223,13 @@ variable "availability_set_id" {
 }
 
 variable "license_type" {
-  description = "Specifies the type of license which should be used for this Virtual Machine. Value must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\". Defaults to null."
+  description = "Specifies the type of existing on-prem license which should be used for this VM. Value must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\"."
   type        = string
   default     = null
+  nullable    = true
 
   validation {
-    condition     = var.license_type == null || contains(["None", "Windows_Client", "Windows_Server", "RHEL_BYOS", "SLES_BYOS"], var.license_type)
-    error_message = "License mode must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" \"SLES_BYOS\" or null."
+    condition     = var.license_type == null ? true : contains(["None", "Windows_Client", "Windows_Server", "RHEL_BYOS", "SLES_BYOS"], var.license_type)
+    error_message = "License type must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\"."
   }
 }
