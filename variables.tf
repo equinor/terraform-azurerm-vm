@@ -223,12 +223,6 @@ variable "availability_set_id" {
 }
 
 variable "license_type" {
-  description = "The license type to assign to this VM."
-  type        = string
-  default     = null
-}
-
-variable "license_type" {
   description = "Specifies the type of license which should be used for this Virtual Machine. Value must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\". Defaults to null."
   type        = string
   default     = null
