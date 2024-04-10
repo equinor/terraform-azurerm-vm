@@ -228,7 +228,7 @@ variable "license_type" {
   default     = null
 
   validation {
-    condition     = contains(["None", "Windows_Client", "Windows_Server", "RHEL_BYOS", "SLES_BYOS"], var.license_type)
-    error_message = "License mode must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\"."
+    condition     = var.license_type == null || contains(["None", "Windows_Client", "Windows_Server", "RHEL_BYOS", "SLES_BYOS"], var.license_type)
+    error_message = "License mode must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" \"SLES_BYOS\"."
   }
 }
