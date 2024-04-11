@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.8.0...v0.9.0) (2024-04-11)
+
+
+### Features
+
+* add license_type ([#45](https://github.com/equinor/terraform-azurerm-vm/issues/45)) ([9356124](https://github.com/equinor/terraform-azurerm-vm/commit/935612404414032da74f68019aa7f96f5fc5fd98))
+
 ## [0.8.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.7.0...v0.8.0) (2024-04-09)
 
 
