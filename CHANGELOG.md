@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/equinor/terraform-azurerm-vm/compare/v0.9.0...v0.9.1) (2024-08-26)
+
+
+### Miscellaneous Chores
+
+* update variable descriptions ([#50](https://github.com/equinor/terraform-azurerm-vm/issues/50)) ([14a7e91](https://github.com/equinor/terraform-azurerm-vm/commit/14a7e91fcbda79e2943fb91703513ebd74c79f95))
+
 ## [0.9.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.8.0...v0.9.0) (2024-04-11)
 
 
