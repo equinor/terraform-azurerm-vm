@@ -17,7 +17,7 @@ variable "location" {
 }
 
 variable "kind" {
-  description = "The kind of VM to create."
+  description = "The kind of VM to create. Value must be \"Linux\" or \"Windows\"."
   type        = string
   default     = "Linux"
   nullable    = false
@@ -86,17 +86,27 @@ variable "os_disk_name" {
 }
 
 variable "os_disk_caching" {
-  description = "The type of caching that should be used for the OS disk."
+  description = "The type of caching that should be used for the OS disk. Value must be \"ReadWrite\", \"ReadOnly\" or \"None\"."
   type        = string
   default     = "ReadWrite"
   # By default, cache-capable OS disks will have read/write caching enabled.
   # Ref: https://learn.microsoft.com/en-us/azure/virtual-machines/disks-performance#virtual-machine-uncached-vs-cached-limits
+
+  validation {
+    condition     = contains(["ReadWrite", "ReadOnly", "None"], var.os_disk_caching)
+    error_message = "OS disk caching must be \"ReadWrite\", \"ReadOnly\" or \"None\"."
+  }
 }
 
 variable "os_disk_storage_account_type" {
-  description = "The type of storage account which should be used for the OS disk."
+  description = "The type of storage account which should be used for the OS disk. Value must be \"Standard_LRS\", \"StandardSSD_LRS\", \"Premium_LRS\", \"StandardSSD_ZRS\" or \"Premium_ZRS\"."
   type        = string
   default     = "StandardSSD_LRS"
+
+  validation {
+    condition     = contains(["Standard_LRS", "StandardSSD_LRS", "Premium_LRS", "StandardSSD_ZRS", "Premium_ZRS"], var.os_disk_storage_account_type)
+    error_message = "OS disk Storage account type must be \"Standard_LRS\", \"StandardSSD_LRS\", \"Premium_LRS\", \"StandardSSD_ZRS\" or \"Premium_ZRS\"."
+  }
 }
 
 variable "os_disk_size_gb" {
