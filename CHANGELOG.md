@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.2](https://github.com/equinor/terraform-azurerm-vm/compare/v0.9.1...v0.9.2) (2024-08-27)
+
+
+### Documentation
+
+* add features list to README ([#52](https://github.com/equinor/terraform-azurerm-vm/issues/52)) ([fd4c463](https://github.com/equinor/terraform-azurerm-vm/commit/fd4c463fa638aea7a81f82897b8c45f52ddb6ce7))
+
 ## [0.9.1](https://github.com/equinor/terraform-azurerm-vm/compare/v0.9.0...v0.9.1) (2024-08-26)
 
 
