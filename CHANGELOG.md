@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.9.2...v0.10.0) (2024-10-03)
+
+
+### Features
+
+* add disk encryption settings ([#54](https://github.com/equinor/terraform-azurerm-vm/issues/54)) ([f90c362](https://github.com/equinor/terraform-azurerm-vm/commit/f90c362a54742a07b46b1104426c8a04c930fe3d))
+
 ## [0.9.2](https://github.com/equinor/terraform-azurerm-vm/compare/v0.9.1...v0.9.2) (2024-08-27)
 
 
