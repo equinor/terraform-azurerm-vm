@@ -190,13 +190,14 @@ variable "identity_ids" {
 variable "data_disks" {
   description = "A map of data disks to be created and attached to this VM."
   type = map(object({
-    name                 = string
-    disk_size_gb         = number
-    storage_account_type = optional(string, "Standard_LRS")
-    caching              = optional(string, "ReadWrite")
-    create_option        = optional(string, "Empty")
-    lun                  = optional(number)
-    hyper_v_generation   = optional(string)
+    name                   = string
+    disk_size_gb           = number
+    storage_account_type   = optional(string, "Standard_LRS")
+    caching                = optional(string, "ReadWrite")
+    create_option          = optional(string, "Empty")
+    lun                    = optional(number)
+    hyper_v_generation     = optional(string)
+    disk_encryption_set_id = optional(string)
   }))
   default = {}
 }
@@ -242,4 +243,11 @@ variable "license_type" {
     condition     = var.license_type == null ? true : contains(["None", "Windows_Client", "Windows_Server", "RHEL_BYOS", "SLES_BYOS"], var.license_type)
     error_message = "License type must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\"."
   }
+}
+
+variable "os_disk_encryption_set_id" {
+  description = "The ID of the Disk Encryption Set which should be used to encrypt this OS disk."
+  type        = string
+  default     = null
+  nullable    = true
 }
