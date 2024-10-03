@@ -243,3 +243,17 @@ variable "license_type" {
     error_message = "License type must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\"."
   }
 }
+
+variable "os_disk_encryption_set_id" {
+  description = "(Optional) The ID of the Disk Encryption Set which should be used to Encrypt this OS Disk."
+  type        = string
+  default     = null
+  nullable    = true
+}
+
+variable "data_disk_encryption_set_id" {
+  description = "(Optional) The ID of the Disk Encryption Set which should be used to Encrypt data Disks."
+  type        = string
+  default     = null
+  nullable    = true
+}

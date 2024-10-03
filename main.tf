@@ -171,9 +171,10 @@ resource "azurerm_windows_virtual_machine" "this" {
   custom_data = local.custom_data
 
   os_disk {
-    caching              = var.os_disk_caching
-    storage_account_type = var.os_disk_storage_account_type
-    disk_size_gb         = var.os_disk_size_gb
+    caching                = var.os_disk_caching
+    storage_account_type   = var.os_disk_storage_account_type
+    disk_size_gb           = var.os_disk_size_gb
+    disk_encryption_set_id = var.os_disk_encryption_set_id
   }
 
   source_image_reference {
@@ -213,13 +214,14 @@ resource "azurerm_windows_virtual_machine" "this" {
 resource "azurerm_managed_disk" "this" {
   for_each = var.data_disks
 
-  name                 = each.value.name
-  resource_group_name  = var.resource_group_name
-  location             = var.location
-  create_option        = each.value.create_option
-  disk_size_gb         = each.value.disk_size_gb
-  storage_account_type = each.value.storage_account_type
-  hyper_v_generation   = each.value.hyper_v_generation
+  name                   = each.value.name
+  resource_group_name    = var.resource_group_name
+  location               = var.location
+  create_option          = each.value.create_option
+  disk_size_gb           = each.value.disk_size_gb
+  storage_account_type   = each.value.storage_account_type
+  hyper_v_generation     = each.value.hyper_v_generation
+  disk_encryption_set_id = var.data_disk_encryption_set_id
 
   tags = var.tags
 }
