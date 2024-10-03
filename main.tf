@@ -222,7 +222,7 @@ resource "azurerm_managed_disk" "this" {
   disk_size_gb           = each.value.disk_size_gb
   storage_account_type   = each.value.storage_account_type
   hyper_v_generation     = each.value.hyper_v_generation
-  disk_encryption_set_id = var.data_disk_encryption_set_id
+  disk_encryption_set_id = each.value.disk_encryption_set_id
 
   tags = var.tags
 }
