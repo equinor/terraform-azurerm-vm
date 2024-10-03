@@ -106,10 +106,11 @@ resource "azurerm_linux_virtual_machine" "this" {
   custom_data = local.custom_data
 
   os_disk {
-    name                 = var.os_disk_name
-    caching              = var.os_disk_caching
-    disk_size_gb         = var.os_disk_size_gb
-    storage_account_type = var.os_disk_storage_account_type
+    name                   = var.os_disk_name
+    caching                = var.os_disk_caching
+    disk_size_gb           = var.os_disk_size_gb
+    storage_account_type   = var.os_disk_storage_account_type
+    disk_encryption_set_id = var.os_disk_encryption_set_id
   }
 
   source_image_reference {
