@@ -208,3 +208,43 @@ run "data_disks" {
     error_message = "Unexpected logical unit numbers (LUNs) for data disks"
   }
 }
+
+run "encryption_at_host_enabled_true" {
+  command = plan
+
+  variables {
+    vm_name                    = run.setup_tests.vm_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    admin_username             = run.setup_tests.admin_username
+    os_disk_name               = run.setup_tests.os_disk_name
+    storage_blob_endpoint      = run.setup_tests.storage_blob_endpoint
+    network_interfaces         = run.setup_tests.network_interfaces
+    encryption_at_host_enabled = true
+  }
+
+  assert {
+    condition     = local.vm.encryption_at_host_enabled == true
+    error_message = "Encryption at host not enabled"
+  }
+}
+
+run "encryption_at_host_enabled_false" {
+  command = plan
+
+  variables {
+    vm_name                    = run.setup_tests.vm_name
+    resource_group_name        = run.setup_tests.resource_group_name
+    location                   = run.setup_tests.location
+    admin_username             = run.setup_tests.admin_username
+    os_disk_name               = run.setup_tests.os_disk_name
+    storage_blob_endpoint      = run.setup_tests.storage_blob_endpoint
+    network_interfaces         = run.setup_tests.network_interfaces
+    encryption_at_host_enabled = false
+  }
+
+  assert {
+    condition     = local.vm.encryption_at_host_enabled == false
+    error_message = "Encryption at host enabled"
+  }
+}

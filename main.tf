@@ -102,6 +102,7 @@ resource "azurerm_linux_virtual_machine" "this" {
   patch_assessment_mode                                  = var.patch_assessment_mode
   bypass_platform_safety_checks_on_user_schedule_enabled = local.bypass_platform_safety_checks_on_user_schedule_enabled
   provision_vm_agent                                     = local.provision_vm_agent
+  encryption_at_host_enabled                             = var.encryption_at_host_enabled
 
   custom_data = local.custom_data
 
@@ -168,6 +169,7 @@ resource "azurerm_windows_virtual_machine" "this" {
   patch_assessment_mode                                  = var.patch_assessment_mode
   bypass_platform_safety_checks_on_user_schedule_enabled = local.bypass_platform_safety_checks_on_user_schedule_enabled
   provision_vm_agent                                     = local.provision_vm_agent
+  encryption_at_host_enabled                             = var.encryption_at_host_enabled
 
   custom_data = local.custom_data
 
