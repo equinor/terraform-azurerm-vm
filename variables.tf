@@ -251,3 +251,9 @@ variable "os_disk_encryption_set_id" {
   default     = null
   nullable    = true
 }
+
+variable "encryption_at_host_enabled" {
+  description = "Should all of the disks (including the temp disk) attached to this Virtual Machine be encrypted by enabling Encryption at Host?"
+  type        = bool
+  default     = false
+}
