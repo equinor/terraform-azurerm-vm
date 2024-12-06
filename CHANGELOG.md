@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.10.0...v0.11.0) (2024-12-06)
+
+
+### Features
+
+* configure encryption at host ([#56](https://github.com/equinor/terraform-azurerm-vm/issues/56)) ([66d28da](https://github.com/equinor/terraform-azurerm-vm/commit/66d28dad39534e49a26d66da472e04a7c040469e))
+
 ## [0.10.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.9.2...v0.10.0) (2024-10-03)
 
 
