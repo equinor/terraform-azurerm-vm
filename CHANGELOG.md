@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.1](https://github.com/equinor/terraform-azurerm-vm/compare/v0.11.0...v0.11.1) (2025-04-24)
+
+
+### Bug Fixes
+
+* error when using Random provider v3.2.0 or lower ([#58](https://github.com/equinor/terraform-azurerm-vm/issues/58)) ([f657231](https://github.com/equinor/terraform-azurerm-vm/commit/f65723100c766177d05bdcdbcce5e616dcc53b05))
+
 ## [0.11.0](https://github.com/equinor/terraform-azurerm-vm/compare/v0.10.0...v0.11.0) (2024-12-06)
 
 
