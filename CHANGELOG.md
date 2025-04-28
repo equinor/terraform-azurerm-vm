@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.2](https://github.com/equinor/terraform-azurerm-vm/compare/v0.11.1...v0.11.2) (2025-04-28)
+
+
+### Documentation
+
+* update README ([2d83470](https://github.com/equinor/terraform-azurerm-vm/commit/2d83470501155189e6232f71c011d7c28998eec9))
+
 ## [0.11.1](https://github.com/equinor/terraform-azurerm-vm/compare/v0.11.0...v0.11.1) (2025-04-24)
 
 
