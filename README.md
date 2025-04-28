@@ -1,8 +1,9 @@
-# Terraform module for Azure VM
+# Terraform module for Azure Virtual Machine
 
-[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-vm/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-vm/badge)
-[![Equinor Terraform Baseline](https://img.shields.io/badge/Equinor%20Terraform%20Baseline-1.0.0-blueviolet)](https://github.com/equinor/terraform-baseline)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![GitHub License](https://img.shields.io/github/license/equinor/terraform-azurerm-vm)](https://github.com/equinor/terraform-azurerm-vm/blob/main/LICENSE)
+[![GitHub Release](https://img.shields.io/github/v/release/equinor/terraform-azurerm-vm)](https://github.com/equinor/terraform-azurerm-vm/releases/latest)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/terraform-azurerm-vm/badge)](https://developer.equinor.com/governance/scm-policy/)
 
 Terraform module which creates Azure Virtual Machine (VM) resources.
 
@@ -13,32 +14,85 @@ Terraform module which creates Azure Virtual Machine (VM) resources.
 - Boot diagnostics enabled.
 - Azure Monitor Agent extension installed.
 
-## Development
+## Prerequisites
 
-1. Clone this repository:
+- Azure role `Contributor` at the resource group scope.
 
-    ```console
-    git clone https://github.com/equinor/terraform-azurerm-vm.git
-    ```
+## Usage
 
-1. Login to Azure:
+```terraform
+provider "azurerm" {
+  storage_use_azuread = true
 
-    ```console
-    az login
-    ```
+  features {}
+}
 
-1. Set active subscription:
+module "vm" {
+  source = "equinor/vm/azurerm"
+  version = "~> 0.11"
 
-    ```console
-    az account set -s <SUBSCRIPTION_NAME_OR_ID>
-    ```
+  vm_name               = "example-vm"
+  resource_group_name   = azurerm_resource_group.example.name
+  location              = azurerm_resource_group.example.location
+  admin_username        = "azureadminuser"
+  os_disk_name          = "example-vm-osdisk"
+  storage_blob_endpoint = module.storage.blob_endpoint
 
-1. Set environment variables:
+  network_interfaces = {
+    "example" = {
+      name = "example-vm-nic"
 
-    ```console
-    export TF_VAR_resource_group_name=<RESOURCE_GROUP_NAME>
-    export TF_VAR_location=<LOCATION>
-    ```
+      ip_configurations = [
+        {
+          name      = "ipconfig1"
+          subnet_id = module.network.subnet_ids["vm"]
+        }
+      ]
+    }
+  }
+}
+
+resource "azurerm_resource_group" "example" {
+  name     = "example-resources"
+  location = "westeurope"
+}
+
+module "log_analytics" {
+  source  = "equinor/log-analytics/azurerm"
+  version = "~> 2.4"
+
+  workspace_name      = "example-workspace"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+}
+
+module "storage" {
+  source  = "equinor/storage/azurerm"
+  version = "~> 12.12"
+
+  account_name               = "examplevmstorage"
+  resource_group_name        = azurerm_resource_group.example.name
+  location                   = azurerm_resource_group.example.location
+  log_analytics_workspace_id = module.log_analytics.workspace_id
+}
+
+module "network" {
+  source  = "equinor/network/azurerm"
+  version = "~> 3.2"
+
+  vnet_name           = "example-vnet"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  address_spaces      = ["10.0.0.0/16"]
+
+  subnets = {
+    "vm" = {
+      name             = "example-vm-snet"
+      address_prefixes = ["10.0.1.0/24"]
+    }
+  }
+}
+```
 
 ## Testing
 
@@ -55,6 +109,7 @@ Terraform module which creates Azure Virtual Machine (VM) resources.
     ```
 
     See [`terraform test` command documentation](https://developer.hashicorp.com/terraform/cli/commands/test) for options.
+
 ## Contributing
 
 See [Contributing guidelines](https://github.com/equinor/terraform-baseline/blob/main/CONTRIBUTING.md).
