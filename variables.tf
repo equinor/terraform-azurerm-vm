@@ -234,7 +234,7 @@ variable "availability_set_id" {
 }
 
 variable "license_type" {
-  description = "Specifies the type of existing on-prem license which should be used for this VM. Value must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" or \"SLES_BYOS\"."
+  description = "Specifies the type of existing on-prem license which should be used for this VM. Value must be \"None\", \"Windows_Client\", \"Windows_Server\", \"RHEL_BYOS\" (Red Hat Enterprise Linux) or \"SLES_BYOS\" (SUSE Linux Enterprise Server)."
   type        = string
   default     = null
   nullable    = true
